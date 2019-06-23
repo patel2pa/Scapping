@@ -138,6 +138,8 @@ bz = []
 search_word = 'powerade'
 source = requests.get('https://www.costco.com/CatalogSearch?dept=All&keyword=powerade', headers = headers)
 soup = BeautifulSoup(source.text, 'lxml')
+soup.find("div",{"class":"container-fluid fixed-container page"})
+y = x.find("div",{"class":"row"}).find("div",{"id":"search-results"}).find("div",{"class":"product-list grid"})
 
 
 
