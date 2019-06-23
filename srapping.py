@@ -57,7 +57,7 @@ class SearchEngine:
  
         for vals in range(len(x)):
             products.append([(x[vals]).text,(y[vals]).find("span",{"class":"visuallyhidden"}).text, m[vals]['href']])
-        print(len(products))
+        print(products)
     
     def walmart(self):
         az = []
@@ -94,21 +94,28 @@ class SearchEngine:
             products.append([tags.find("p",{"class":"description"}).find("a").text, tags.find("div",{"class":"price"}).text, tags.find("p",{"class":"description"}).find("a")['href']])
         
         print(products)
- 
+
 '''
+headers = {	'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+				'accept-encoding':'gzip, deflate, br',
+				'accept-language':'en-GB,en;q=0.9,en-US;q=0.8,ml;q=0.7',
+				'cache-control':'max-age=0',
+				'upgrade-insecure-requests':'1',
+				'user-agent':'Chrome/64.0.3282.186'}
+        
  
-search_word = 'powerade'
-source = requests.get('https://www.samsclub.com/sams/search/searchResults.jsp?searchTerm={}&searchCategoryId=all&xid=hdr_search-typeahead_{}'.format(search_word, search_word))
+search_word = "powerade"
+source = requests.get('https://www.samsclub.com/sams/search/searchResults.jsp?searchTerm={}&searchCategoryId=all&xid=hdr_search-typeahead_{}'.format(search_word, search_word), headers = headers)
 soup = BeautifulSoup(source.text, 'lxml')
 x =(soup.find_all("div", {"class":"sc-product-card-title"}))
 y = (soup.find_all("span", {"class": "sc-price"}))
 m = soup.find_all("a", {"class":"sc-product-card-pdp-link"}, href = True)
 products = []
- 
 for vals in range(len(x)):
     products.append([(x[vals]).text,(y[vals]).find("span",{"class":"visuallyhidden"}).text, m[vals]['href']])
-     
-'''  
+print(len(products))
+'''     
+ 
 
 '''
 headers = {	'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -153,8 +160,12 @@ for tags in y:
     products.append([tags.find("p",{"class":"description"}).find("a").text, tags.find("div",{"class":"price"}).text, tags.find("p",{"class":"description"}).find("a")['href']])
 '''
 
-costco = SearchEngine("beef+jerky")
-print(costco.sams())
+
+powerade = SearchEngine("powerade")
+powerade.sams()
+#powerade.walmart()
+#powerade.costco()
+
 
 
 
