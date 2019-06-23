@@ -77,6 +77,9 @@ class SearchEngine:
                     az.append([r.find("a").text,r.find("a")['href']])
         for a in range(len(az)):
             az[a].append(bz[a])
+    
+        for num in az:
+            num[0], num[2], num[1] = num[0], num[1], num[2]
         print(az)
 
         
@@ -150,10 +153,8 @@ for tags in y:
     products.append([tags.find("p",{"class":"description"}).find("a").text, tags.find("div",{"class":"price"}).text, tags.find("p",{"class":"description"}).find("a")['href']])
 '''
 
-costco = SearchEngine("gatorade")
-print(costco.walmart())
-
-
+costco = SearchEngine("beef+jerky")
+print(costco.sams())
 
 
 
